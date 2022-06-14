@@ -33,6 +33,7 @@ sizeBall = 0
 
 # Point
 points = 0
+highPoints = 0
 
 # Desing
 gameGap = 10
@@ -45,7 +46,7 @@ leftKeyUpImage = ""
 rightKeyUpImage = ""
 
 def setup():
-    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, upKeyUpImage, downKeyUpImage, rightKeyUpImage, leftKeyUpImage, timer, storySection
+    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, upKeyUpImage, downKeyUpImage, rightKeyUpImage, leftKeyUpImage, timer, storySection, highPoints
     size(800, 600)
     smooth(4)
     
@@ -75,6 +76,7 @@ def setup():
 
     # Game
     timer = 0
+    highPoints = points
     
     # Connection
     # print("Lista", Serial.list())
@@ -108,7 +110,7 @@ def draw():
         textSize(40)
         text("HISTORIA", width / 2, height / 10)
         textSize(25)
-        text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet lectus nisi. Proin commodo sem commodo aliquet porttitor. Nulla in venenatis orci. Maecenas gravida magna et mi congue malesuada. Morbi urna magna, tempus ut augue vitae, condimentum elementum nisi. Ut congue malesuada elit, at dictum libero luctus vel. Proin eu tellus vel enim tempor pulvinar. Duis risus neque, faucibus non laoreet eu, facilisis vel purus. Nam ornare tincidunt ipsum, in aliquet felis. Nunc ultrices mi et massa condimentum, in cursus magna fermentum.", 40, 40, width, height)
+        text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet lectus nisi. Proin commodo sem commodo aliquet porttitor. Nulla in venenatis orci. Maecenas gravida magna et mi congue malesuada. Morbi urna magna, tempus ut augue vitae, condimentum elementum nisi. Ut congue malesuada elit, at dictum libero luctus vel. Proin eu tellus vel enim tempor pulvinar. Duis risus neque, faucibus non laoreet eu, facilisis vel purus. Nam ornare tincidunt ipsum, in aliquet felis. Nunc ultrices mi et massa condimentum, in cursus magna fermentum.", width / 100, height / 8, width - width / 10, height)
 
     # Pause
     if isPause:
@@ -149,7 +151,10 @@ def draw():
         textSize(width / 15)
         textAlign(LEFT)
         text(str(points), width / 55, height / 10)
-            
+
+        textAlign(LEFT)
+        text("Mejor puntaje: " + str(highPoints), width / 2, height / 10)
+        
         xBall += speedXBall
         yBall += speedYBall
 
@@ -180,7 +185,7 @@ def draw():
 
     
         # Collition
-        if xBall > xBar - wBar / 2 and xBall < xBar + wBar / 2 and yBall > yBar - sizeBall and yBall < yBar + sizeBall:
+        if xBall > xBar - wBar / 2 and xBall < xBar + wBar / 2 and yBall > yBar - sizeBall - 2  and yBall < yBar + sizeBall:
             speedYBall = -speedYBall
         
         # Limits bar
@@ -200,15 +205,6 @@ def draw():
         textSize(15)
         text("Presione ESPACIO para volver a jugar", width / 2, height / 1.7)
     
-    # if myPort.available() > 0:
-    #     val = myPort.read()
-    #     if val == 65:
-    #         xBar -= sBar
-    #     if val == 66:
-    #         xBar += sBar
-    # stroke(255)
-    # line(width / 2, 0, width / 2, height)
-    # line(0, height / 2, width, height / 2)
 def keyPressed():
     global xBar, sBar, isPlaying, isGameOver, isPause, storySection
     
@@ -238,7 +234,7 @@ def keyPressed():
         
 
 def resetGame():
-    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, isGameOver, isPause, isPlaying, points, timer
+    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, isGameOver, isPause, isPlaying, points, timer, highPoints
     
     xBar = width / 2
     yBar = height / 1.2
@@ -258,6 +254,8 @@ def resetGame():
     backgroundImage = loadImage("./images/background.jpg")
     isGameOver = False
     timer = 0
+    
+    highPoints = points if points > highPoints else highPoints
 
     points = 0
 
