@@ -1,5 +1,5 @@
 '''
-[] Story
+[] storySection
 [X] Instrutions
 [] Connection to robotcito
 '''
@@ -14,6 +14,7 @@
 isPlaying = False
 isGameOver = False
 isPause = False
+storySection = False
 timer = 0
 
 # Bar
@@ -44,7 +45,7 @@ leftKeyUpImage = ""
 rightKeyUpImage = ""
 
 def setup():
-    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, upKeyUpImage, downKeyUpImage, rightKeyUpImage, leftKeyUpImage, timer
+    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, ballImage, pauseButtonImage, backgroundImage, upKeyUpImage, downKeyUpImage, rightKeyUpImage, leftKeyUpImage, timer, storySection
     size(800, 600)
     smooth(4)
     
@@ -81,7 +82,7 @@ def setup():
     
     
 def draw():
-    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, points, isPlaying, isGameOver, pauseButtonImage, backgroundImage, ballImage, upKeyUpImage, downKeyUpImage, leftKeyUpImage, rightKeyUpImage, timer
+    global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, points, isPlaying, isGameOver, pauseButtonImage, backgroundImage, ballImage, upKeyUpImage, downKeyUpImage, leftKeyUpImage, rightKeyUpImage, timer, storySection
 
     # Background 
     background(0)
@@ -94,7 +95,21 @@ def draw():
     # Home 
     if not isPlaying and not isGameOver and not isPause:
         home()
+
+
+    # storySection
+    if storySection:
+        fill(0)
+        rectMode(CORNER)
+        rect(0, 0, width, height)
         
+        fill(255)
+        textAlign(CENTER)
+        textSize(40)
+        text("HISTORIA", width / 2, height / 10)
+        textSize(25)
+        text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet lectus nisi. Proin commodo sem commodo aliquet porttitor. Nulla in venenatis orci. Maecenas gravida magna et mi congue malesuada. Morbi urna magna, tempus ut augue vitae, condimentum elementum nisi. Ut congue malesuada elit, at dictum libero luctus vel. Proin eu tellus vel enim tempor pulvinar. Duis risus neque, faucibus non laoreet eu, facilisis vel purus. Nam ornare tincidunt ipsum, in aliquet felis. Nunc ultrices mi et massa condimentum, in cursus magna fermentum.", 40, 40, width, height)
+
     # Pause
     if isPause:
         textAlign(CENTER)
@@ -102,11 +117,6 @@ def draw():
         text("PAUSA", width / 2, height / 3)
         imageMode(CENTER)
         image(pauseButtonImage, width / 2, height / 1.5, width / 10, width / 10)
-
-        rectMode(CENTER)
-        rect(0, 0, width, height)
-        textAlign(CENTER)
-        text("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi sit amet lectus nisi. Proin commodo sem commodo aliquet porttitor. Nulla in venenatis orci. Maecenas gravida magna et mi congue malesuada. Morbi urna magna, tempus ut augue vitae, condimentum elementum nisi. Ut congue malesuada elit, at dictum libero luctus vel. Proin eu tellus vel enim tempor pulvinar. Duis risus neque, faucibus non laoreet eu, facilisis vel purus. Nam ornare tincidunt ipsum, in aliquet felis. Nunc ultrices mi et massa condimentum, in cursus magna fermentum.", width / 3, height / 2)
     
     # Game
     if isPlaying and not isGameOver:    
@@ -200,8 +210,8 @@ def draw():
     # line(width / 2, 0, width / 2, height)
     # line(0, height / 2, width, height / 2)
 def keyPressed():
-    global xBar, sBar, isPlaying, isGameOver, isPause
-
+    global xBar, sBar, isPlaying, isGameOver, isPause, storySection
+    
     if keyCode == 80:
         isPlaying = True
     
@@ -218,6 +228,11 @@ def keyPressed():
         if keyCode == UP:
             isPlaying = True
             isPause = False
+
+    if not isPlaying and not isGameOver:
+        if keyCode == 72:
+            isPlaying = False
+            storySection = not storySection
     if keyCode == 32 and isGameOver:
         resetGame()
         
