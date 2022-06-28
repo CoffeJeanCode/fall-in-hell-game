@@ -1,15 +1,3 @@
-'''
-[] storySection
-[X] Instrutions
-[] Connection to robotcito
-'''
-
-# add_library("serial")
-
-# connection
-# portIndex = 0
-# myPort = Serial(this, Serial.list()[portIndex], 9600)
-
 # Game
 isPlaying = False
 isGameOver = False
@@ -77,11 +65,6 @@ def setup():
     # Game
     timer = 0
     highPoints = points
-    
-    # Connection
-    # print("Lista", Serial.list())
-    # myPort.bufferUntil(10)
-    
     
 def draw():
     global xBar, yBar, yBall, xBall, sBall, speedYBall, speedXBall, sizeBall, wBar, hBar, gameGap, points, isPlaying, isGameOver, pauseButtonImage, backgroundImage, ballImage, upKeyUpImage, downKeyUpImage, leftKeyUpImage, rightKeyUpImage, timer, storySection
